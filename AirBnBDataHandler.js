@@ -78,11 +78,11 @@ export const AirBnBDataHandler = (data) => {
      */
     computeHostsRanking() {
       const hosts = data.reduce((acc, listing) => {
-        acc[listing.host_id] = (acc[listing.host_id] || 0) + 1;
+        acc[listing.host_listings_count] = (acc[listing.host_listings_count] || 0) + 1;
         return acc;
       }, {});
       const ranking = Object.entries(hosts)
-        .sort(([, a], [, b]) => b - a)
+        .sort(([, a], [, b]) => b.count - a.count)
         .map(([host, count]) => ({ host, count }));
       return ranking;
     },
