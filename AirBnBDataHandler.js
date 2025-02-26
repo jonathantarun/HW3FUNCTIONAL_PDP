@@ -40,19 +40,34 @@ export const AirBnBDataHandler = (data) => {
      */
     computeStats() {
       const count = data.length;
-      const totalPrice = data.reduce((acc, listing) => acc + Number(listing.price), 0);
-      const avgPrice = count > 0 ? totalPrice / count : 0;
+      const totalPrice = data.reduce((acc, listing) => {
+        const cleanPrice = parseFloat(listing.price.replace(/[^0-9.]/g, ''));
+        return acc + (isNaN(cleanPrice) ? 0 : cleanPrice);
+      }, 0);
+      const avgPrice = count > 0 ? totalPrice / count : 0; // making sure that the filtered data is not empty
 
       const roomGroups = data.reduce((groups, listing) => {
-        const rooms = listing.rooms;
+        // Make sure you're using the correct property name
+        const rooms = listing.bedrooms || listing.rooms; // Use whichever exists
+        if (rooms === undefined) return groups; // Skip if no room information
         if (!groups[rooms]) groups[rooms] = [];
-        groups[rooms].push(Number(listing.price));
+        // Clean and parse the price consistently
+        const cleanPrice = parseFloat(listing.price.replace(/[^0-9.]/g, ''));
+        if (!isNaN(cleanPrice)) {
+          groups[rooms].push(cleanPrice); // Only add valid prices
+        }
         return groups;
       }, {});
+      
       const avgPricePerRoom = {};
       for (const rooms in roomGroups) {
         const prices = roomGroups[rooms];
-        avgPricePerRoom[rooms] = prices.reduce((a, b) => a + b, 0) / prices.length;
+        // Only calculate average if we have prices
+        if (prices.length > 0) {
+          avgPricePerRoom[rooms] = prices.reduce((a, b) => a + b, 0) / (prices.length * rooms);
+        } else {
+          avgPricePerRoom[rooms] = 0; // Default value for empty categories
+        }
       }
       return { count, avgPrice, avgPricePerRoom };
     },
