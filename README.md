@@ -20,7 +20,7 @@ Check out the original dataset [here.](https://data.insideairbnb.com/united-stat
 
 1. Comparing 2 Filters: I added an option to input 2 filters and allow the users to look at and compare the statistics of the same.
 
-![Compare Two Filters]](c2f.png)
+![Compare Two Filters](c2f.png)
 
 2. I added a small bar chart visualization of the top 10 hosts according to average rating. (However this ended up with a not so useful visualization since all top 10 hosts had an average rating of 5.0).
 
