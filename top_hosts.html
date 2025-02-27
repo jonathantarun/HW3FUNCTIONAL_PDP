@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Top 10 Hosts by Average Rating</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  </head>
+  <body>
+    <div id="vis"></div>
+    <script type="text/javascript">
+      const spec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Top 10 Hosts by Average Rating",
+  "data": {
+    "values": [
+      {
+        "host": "Monika",
+        "avgRating": 5,
+        "count": 1
+      },
+      {
+        "host": "Jennifer Santos",
+        "avgRating": 5,
+        "count": 1
+      },
+      {
+        "host": "Diana",
+        "avgRating": 5,
+        "count": 1
+      },
+      {
+        "host": "Irene & Hursey",
+        "avgRating": 5,
+        "count": 2
+      },
+      {
+        "host": "Josh",
+        "avgRating": 5,
+        "count": 2
+      },
+      {
+        "host": "Kamal",
+        "avgRating": 5,
+        "count": 2
+      },
+      {
+        "host": "Daphne & Corey",
+        "avgRating": 5,
+        "count": 1
+      },
+      {
+        "host": "Robin",
+        "avgRating": 5,
+        "count": 1
+      },
+      {
+        "host": "Madison",
+        "avgRating": 5,
+        "count": 1
+      },
+      {
+        "host": "Lucy",
+        "avgRating": 5,
+        "count": 1
+      }
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "host",
+      "type": "nominal",
+      "axis": {
+        "title": "Host"
+      },
+      "sort": {
+        "field": "avgRating",
+        "order": "descending"
+      }
+    },
+    "x": {
+      "field": "avgRating",
+      "type": "quantitative",
+      "axis": {
+        "title": "Average Rating"
+      }
+    }
+  }
+};
+      vegaEmbed('#vis', spec).then(result => {
+        console.log("Visualization rendered successfully.");
+      }).catch(console.error);
+    </script>
+  </body>
+</html>
+          
